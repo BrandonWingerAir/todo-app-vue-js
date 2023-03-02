@@ -22,6 +22,9 @@
       completed: false,
       createdAt: new Date().getTime()
     })
+
+    input_content.value = ''
+    input_category.value = null
   }
 
   const removeItem = item => {
