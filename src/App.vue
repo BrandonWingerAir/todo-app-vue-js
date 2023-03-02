@@ -7,11 +7,26 @@
   const input_content = ref('')
   const input_category = ref(null)
 
-  const items_asc = computed(() => todos.value.sort((a, b) => {
+  const items_asc = computed(() => items.value.sort((a, b) => {
     return b.createdAt - a.createdAt
   }))
 
-  const addItem = () => {}
+  const addItem = () => {
+    if (input_content.value.trim() === '' || input_category.value === null) {
+      return
+    }
+
+    items.value.push({
+      content: input_content.value,
+      category: input_category.value,
+      done: false,
+      createdAt: new Date().getTime()
+    })
+  }
+
+  watch(items, newVal => {
+    localStorage.setItem('items', JSON.stringify(newVal))
+  }, { deep: true })
 
   watch(name, (newVal) => {
     localStorage.setItem('name', newVal)
@@ -19,6 +34,7 @@
 
   onMounted(() => {
     name.value = localStorage.getItem('name') || ''
+    items.value = JSON.parse(localStorage.getItem('items')) || []
   })
 </script>
 
@@ -33,7 +49,7 @@
     <section class="create-todo">
       <h3>PROGRESS</h3>
 
-      <form @submit.prevent="addTodo">
+      <form @submit.prevent="addItem">
         <h4>What's on your list?</h4>
         <input type="text" placeholder="e.g. make a video" v-model="input_content">
 
@@ -66,5 +82,7 @@
         <input type="submit" value="Add Item">
       </form>
     </section>
+
+    {{ items_asc }}
   </main>
 </template>
