@@ -24,6 +24,10 @@
     })
   }
 
+  const removeItem = item => {
+    items.value = items.value.filter(i => i !== item)
+  }
+
   watch(items, newVal => {
     localStorage.setItem('items', JSON.stringify(newVal))
   }, { deep: true })
@@ -94,6 +98,10 @@
 
           <div class="todo-content">
             <input type="text" v-model="item.content">
+          </div>
+
+          <div class="actions">
+            <button class="delete" @click="removeItem(item)">&nbsp;x&nbsp;</button>
           </div>
         </div>
       </div>
