@@ -19,7 +19,7 @@
     items.value.push({
       content: input_content.value,
       category: input_category.value,
-      done: false,
+      completed: false,
       createdAt: new Date().getTime()
     })
   }
@@ -83,6 +83,20 @@
       </form>
     </section>
 
-    {{ items_asc }}
+    <section class="todo-list">
+      <h3>Tasks</h3>
+      <div class="list">
+        <div v-for="item in items_asc" :class="`todo-item ${item.completed && 'done'}`">
+          <label>
+            <input type="checkbox" v-model="item.completed">
+            <span :class="`bubble ${item.category}`"></span>
+          </label>
+
+          <div class="todo-content">
+            <input type="text" v-model="item.content">
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </template>
