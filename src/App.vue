@@ -54,13 +54,13 @@
     </section>
 
     <section class="create-todo">
-      <h3>PROGRESS</h3>
+      <h3>Note</h3>
 
       <form @submit.prevent="addItem">
-        <h4>What's on your list?</h4>
+        <h4>Title</h4>
         <input type="text" placeholder="e.g. make a video" v-model="input_content">
 
-        <h4>Pick a category</h4>
+        <h4>Category</h4>
 
         <div class="options">
           <label>
@@ -91,7 +91,7 @@
     </section>
 
     <section class="todo-list">
-      <h3>Tasks</h3>
+      <h3>List:</h3>
       <div class="list">
         <div v-for="item in items_asc" :class="`todo-item ${item.completed && 'done'}`">
           <label>
